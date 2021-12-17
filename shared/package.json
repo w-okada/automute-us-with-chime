@@ -1,0 +1,14 @@
+{
+    "name": "shared",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "clean": "rimraf dist/*",
+        "build:tsc": "npx tsc",
+        "build": "run-s clean build:tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}

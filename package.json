@@ -1,0 +1,45 @@
+{
+    "name": "automute-us-for-slack",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "clean": "rimraf dist/*",
+        "build:tsc": "npx tsc",
+        "install:front": "cd frontend && npm install && cd -",
+        "build:front": "cd frontend && npm run build && cd -",
+        "build:shared": "cd shared && npm run build && cd -",
+        "build:backend": "run-s clean build:tsc",
+        "build": "run-s clean build:shared build:front build:backend",
+        "start": "node dist/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/w-okada/automute-us-for-slack.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/w-okada/automute-us-for-slack/issues"
+    },
+    "homepage": "https://github.com/w-okada/automute-us-for-slack#readme",
+    "devDependencies": {
+        "@types/node": "^16.11.12",
+        "npm-run-all": "^4.1.5",
+        "rimraf": "^3.0.2",
+        "typescript": "^4.5.3"
+    },
+    "dependencies": {
+        "@slack/bolt": "^3.8.1",
+        "async-lock": "^1.3.0",
+        "aws-sdk": "^2.1046.0",
+        "bcrypt": "^5.0.1",
+        "passport": "^0.5.0",
+        "passport-local": "^1.0.0",
+        "pg": "^8.7.1",
+        "socket.io": "^4.4.0",
+        "uuid": "^8.3.2"
+    }
+}
