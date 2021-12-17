@@ -8,7 +8,6 @@ const chimeApi_1 = require("./012_chime/chimeApi");
 const socketIO_1 = require("./013_socketIO/socketIO");
 // import * as express from "express";
 const express_1 = __importDefault(require("express"));
-const http_1 = __importDefault(require("http"));
 const slackApp_1 = require("./010_slack/slackApp");
 const roomInfoDao_1 = require("./002_dao/roomInfoDao");
 const rest_1 = require("./011_rest/rest");
@@ -37,12 +36,10 @@ const startServer = async () => {
         app.use(express_1.default.json());
         (0, rest_1.setupRestApi)(app);
         (0, chimeApi_1.setupChimeApi)(app);
-        app.listen(port, () => {
+        const server = app.listen(port, () => {
             console.log(`Express Server Listen START at port=${port}`);
         });
-        const server = new http_1.default.Server(app);
         (0, socketIO_1.setupSocketIO)(server);
-        // setupSocketIO(server);
     }
 };
 startServer();
