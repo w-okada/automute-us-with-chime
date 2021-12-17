@@ -1,5 +1,5 @@
 {
-    "name": "automute-us-for-slack",
+    "name": "automute-us-with-chime",
     "version": "1.0.0",
     "description": "",
     "main": "dist/index.js",
@@ -16,15 +16,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/w-okada/automute-us-for-slack.git"
+        "url": "git+https://github.com/w-okada/automute-us-with-chime.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/w-okada/automute-us-for-slack/issues"
+        "url": "https://github.com/w-okada/automute-us-with-chime/issues"
     },
-    "homepage": "https://github.com/w-okada/automute-us-for-slack#readme",
+    "homepage": "https://github.com/w-okada/automute-us-with-chime#readme",
     "devDependencies": {
         "@types/node": "^16.11.12",
         "npm-run-all": "^4.1.5",
