@@ -31,6 +31,7 @@ const startServer = async () => {
         (0, socketIO_1.setupSocketIO)(server);
     }
     else {
+        console.log("NORMAL MODE");
         const app = (0, express_1.default)();
         (0, rest_1.setupRestApi)(app);
         (0, chimeApi_1.setupChimeApi)(app);

@@ -9,7 +9,6 @@ import { setupRestApi } from "./011_rest/rest";
 
 export const LOCAL_DEV = false;
 // export const LOCAL_DEV = true;
-export const FEDERATE_SLACK = false;
 const port: number = Number(process.env.PORT) || 3000;
 
 console.log(`[MAIN] START APP, PORT:${port}`);
@@ -29,6 +28,7 @@ const startServer = async () => {
         setupChimeApi(receiver.app);
         setupSocketIO(server);
     } else {
+        console.log("NORMAL MODE");
         const app = express();
         setupRestApi(app);
         setupChimeApi(app);
