@@ -67,8 +67,9 @@ const syncMeetingInfoWithChimeServer = async (roomInfo) => {
         roomInfo.meetingInfo = undefined;
     }
 };
-const setupChimeApi = (receiver) => {
-    receiver.app.post(`/api/chime/meetings`, async (req, res) => {
+// export const setupChimeApi = (receiver: ExpressReceiver) => {
+const setupChimeApi = (app) => {
+    app.post(`/api/chime/meetings`, async (req, res) => {
         console.log(`[CHIME] create meeting.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"]);
         const roomInfo = await (0, roomInfoDao_1.getRoomInfo)(userInfo.roomName);
@@ -131,7 +132,7 @@ const setupChimeApi = (receiver) => {
         res.send(JSON.stringify(response));
         console.log(`[CHIME] create new meeting room is creating done.  ${userInfo.roomName}:${newMeetingInfo.Meeting.MeetingId}`);
     });
-    receiver.app.get(`/api/chime/meetings/:meetingName`, async (req, res) => {
+    app.get(`/api/chime/meetings/:meetingName`, async (req, res) => {
         console.log(`[CHIME] get meeting info.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"]);
         const roomInfo = await (0, roomInfoDao_1.getRoomInfo)(userInfo.roomName);
@@ -171,7 +172,7 @@ const setupChimeApi = (receiver) => {
             console.log(`[CHIME] get meeting info. done`);
         }
     });
-    receiver.app.post(`/api/chime/meetings/:meetingName/attendees`, async (req, res) => {
+    app.post(`/api/chime/meetings/:meetingName/attendees`, async (req, res) => {
         console.log(`[CHIME] add attendee.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"]);
         //// (1) check meeting exists
@@ -225,7 +226,7 @@ const setupChimeApi = (receiver) => {
         res.send(JSON.stringify(response));
         console.log(`[CHIME] add attendee done.`);
     });
-    receiver.app.get(`/api/chime/meetings/:meetingName/attendees/:attendeeId`, async (req, res) => {
+    app.get(`/api/chime/meetings/:meetingName/attendees/:attendeeId`, async (req, res) => {
         console.log(`[CHIME] get attendee info.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"]);
         //// (1) check meeting exists

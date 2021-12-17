@@ -5,6 +5,7 @@ import { UserInformation } from "../000_sharedData/userInfo";
 import { addUser, changePassword, signin } from "../002_dao/accountDao";
 import { generateNewRoom, getRoomInfo } from "../002_dao/roomInfoDao";
 import { decodeUserToken, generateUserToken } from "../003_token/userToken";
+import express from "express";
 
 const webSecret = process.env.APP_WEB_SECRET;
 
@@ -45,9 +46,10 @@ const generateUserInformationFromWeb = async (roomName: string, username: string
     }
 };
 
-export const setupRestApi = (receiver: ExpressReceiver) => {
+// export const setupRestApi = (receiver: ExpressReceiver) => {
+export const setupRestApi = (app: express.Application) => {
     /////// Token
-    receiver.app.post(`/api/auth/decodeInformation`, async (req, res) => {
+    app.post(`/api/auth/decodeInformation`, async (req, res) => {
         console.log(`[REST][USER_AUTH] decode token.`);
 
         const request = req.body as SlackHTTPGetUserInformationRequest;
@@ -72,7 +74,7 @@ export const setupRestApi = (receiver: ExpressReceiver) => {
     });
 
     ////// Sign up
-    receiver.app.post(`/api/auth/user`, async (req, res) => {
+    app.post(`/api/auth/user`, async (req, res) => {
         const signupRequest = req.body as AuthHTTPSignupRequest;
         try {
             addUser(signupRequest.username, signupRequest.password);
@@ -115,7 +117,7 @@ export const setupRestApi = (receiver: ExpressReceiver) => {
     });
 
     ////// Generate Token
-    receiver.app.post(`/api/auth/user/operation/generateToken`, async (req, res) => {
+    app.post(`/api/auth/user/operation/generateToken`, async (req, res) => {
         const getTokenRequest = req.body as AuthHTTPGetTokenRequest;
         const signinResult = await signin(getTokenRequest.username, getTokenRequest.password);
         if (signinResult === false) {
@@ -151,7 +153,7 @@ export const setupRestApi = (receiver: ExpressReceiver) => {
     });
 
     ////// Change password
-    receiver.app.put(`/api/auth/user`, async (req, res) => {
+    app.put(`/api/auth/user`, async (req, res) => {
         const changePasswordRequest = req.body as AuthHTTPChangePasswordRequest;
         try {
             await changePassword(changePasswordRequest.username, changePasswordRequest.password, changePasswordRequest.newPassword);

@@ -43,9 +43,10 @@ const generateUserInformationFromWeb = async (roomName, username) => {
         return user;
     }
 };
-const setupRestApi = (receiver) => {
+// export const setupRestApi = (receiver: ExpressReceiver) => {
+const setupRestApi = (app) => {
     /////// Token
-    receiver.app.post(`/api/auth/decodeInformation`, async (req, res) => {
+    app.post(`/api/auth/decodeInformation`, async (req, res) => {
         console.log(`[REST][USER_AUTH] decode token.`);
         const request = req.body;
         try {
@@ -69,7 +70,7 @@ const setupRestApi = (receiver) => {
         }
     });
     ////// Sign up
-    receiver.app.post(`/api/auth/user`, async (req, res) => {
+    app.post(`/api/auth/user`, async (req, res) => {
         const signupRequest = req.body;
         try {
             (0, accountDao_1.addUser)(signupRequest.username, signupRequest.password);
@@ -113,7 +114,7 @@ const setupRestApi = (receiver) => {
         }
     });
     ////// Generate Token
-    receiver.app.post(`/api/auth/user/operation/generateToken`, async (req, res) => {
+    app.post(`/api/auth/user/operation/generateToken`, async (req, res) => {
         const getTokenRequest = req.body;
         const signinResult = await (0, accountDao_1.signin)(getTokenRequest.username, getTokenRequest.password);
         if (signinResult === false) {
@@ -150,7 +151,7 @@ const setupRestApi = (receiver) => {
         }
     });
     ////// Change password
-    receiver.app.put(`/api/auth/user`, async (req, res) => {
+    app.put(`/api/auth/user`, async (req, res) => {
         const changePasswordRequest = req.body;
         try {
             await (0, accountDao_1.changePassword)(changePasswordRequest.username, changePasswordRequest.password, changePasswordRequest.newPassword);

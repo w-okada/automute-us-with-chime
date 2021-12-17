@@ -6,6 +6,7 @@ import { HTTPCreateMeetingResponse, HTTPGetAttendeeInfoResponse, HTTPGetMeetingI
 import { MeetingInfo, Metadata, RoomInfo } from "../000_sharedData/room";
 import { getRoomInfo, updateRoom } from "../002_dao/roomInfoDao";
 import { decodeUserToken } from "../003_token/userToken";
+import express from "express";
 
 const chime = new Chime({ region: "us-east-1" });
 chime.endpoint = new Endpoint("https://service.chime.aws.amazon.com/console");
@@ -75,8 +76,9 @@ const syncMeetingInfoWithChimeServer = async (roomInfo: RoomInfo): Promise<RoomI
     }
 };
 
-export const setupChimeApi = (receiver: ExpressReceiver) => {
-    receiver.app.post(`/api/chime/meetings`, async (req, res) => {
+// export const setupChimeApi = (receiver: ExpressReceiver) => {
+export const setupChimeApi = (app: express.Application) => {
+    app.post(`/api/chime/meetings`, async (req, res) => {
         console.log(`[CHIME] create meeting.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"] as string);
         const roomInfo = await getRoomInfo(userInfo.roomName);
@@ -145,7 +147,7 @@ export const setupChimeApi = (receiver: ExpressReceiver) => {
         console.log(`[CHIME] create new meeting room is creating done.  ${userInfo.roomName}:${newMeetingInfo.Meeting.MeetingId}`);
     });
 
-    receiver.app.get(`/api/chime/meetings/:meetingName`, async (req, res) => {
+    app.get(`/api/chime/meetings/:meetingName`, async (req, res) => {
         console.log(`[CHIME] get meeting info.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"] as string);
         const roomInfo = await getRoomInfo(userInfo.roomName);
@@ -187,7 +189,7 @@ export const setupChimeApi = (receiver: ExpressReceiver) => {
         }
     });
 
-    receiver.app.post(`/api/chime/meetings/:meetingName/attendees`, async (req, res) => {
+    app.post(`/api/chime/meetings/:meetingName/attendees`, async (req, res) => {
         console.log(`[CHIME] add attendee.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"] as string);
         //// (1) check meeting exists
@@ -246,7 +248,7 @@ export const setupChimeApi = (receiver: ExpressReceiver) => {
         console.log(`[CHIME] add attendee done.`);
     });
 
-    receiver.app.get(`/api/chime/meetings/:meetingName/attendees/:attendeeId`, async (req, res) => {
+    app.get(`/api/chime/meetings/:meetingName/attendees/:attendeeId`, async (req, res) => {
         console.log(`[CHIME] get attendee info.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"] as string);
         //// (1) check meeting exists
