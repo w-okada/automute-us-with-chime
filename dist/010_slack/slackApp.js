@@ -88,7 +88,7 @@ const startSlackApp = async (port) => {
     };
     ////// (1-3-2) main funcs
     //////// (a) slash command
-    app.command("/automute-us", async ({ command, ack, say }) => {
+    app.command("/automute-us-with-chime", async ({ command, ack, say }) => {
         await ack();
         const teamToken = await (0, auth_1.fetchToken)(command.team_id);
         // //// helpを入力された場合

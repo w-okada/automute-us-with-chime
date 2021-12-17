@@ -14,7 +14,9 @@ export const MediaDeviceType = {
 export type MediaDeviceType = typeof MediaDeviceType[keyof typeof MediaDeviceType];
 
 const getDeviceLists = async (): Promise<MediaDeviceInfoList> => {
+    console.log("GET DEVICE LIST1");
     const list = await navigator.mediaDevices.enumerateDevices();
+    console.log("GET DEVICE LIST2");
 
     const audioInputDevices: MediaDeviceInfo[] = list.filter((x: MediaDeviceInfo) => {
         return x.kind === MediaDeviceType.audioinput;
