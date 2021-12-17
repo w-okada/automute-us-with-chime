@@ -32,6 +32,9 @@ const startServer = async () => {
     else {
         console.log("NORMAL MODE");
         const app = (0, express_1.default)();
+        const STATIC_PATH = __dirname + "/../frontend/dist/";
+        app.use("/static", express_1.default.static(STATIC_PATH));
+        app.use(express_1.default.json());
         (0, rest_1.setupRestApi)(app);
         (0, chimeApi_1.setupChimeApi)(app);
         const server = new http_1.default.Server(app);

@@ -30,8 +30,14 @@ const startServer = async () => {
     } else {
         console.log("NORMAL MODE");
         const app = express();
+
+        const STATIC_PATH = __dirname + "/../frontend/dist/";
+        app.use("/static", express.static(STATIC_PATH));
+
+        app.use(express.json());
         setupRestApi(app);
         setupChimeApi(app);
+
         const server = new http.Server(app);
         app.listen(port, () => {
             console.log(`Express Server Listen START at port=${port}`);
