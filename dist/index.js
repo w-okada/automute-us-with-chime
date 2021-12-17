@@ -37,11 +37,11 @@ const startServer = async () => {
         app.use(express_1.default.json());
         (0, rest_1.setupRestApi)(app);
         (0, chimeApi_1.setupChimeApi)(app);
-        const server = new http_1.default.Server(app);
-        (0, socketIO_1.setupSocketIO)(server);
         app.listen(port, () => {
             console.log(`Express Server Listen START at port=${port}`);
         });
+        const server = new http_1.default.Server(app);
+        (0, socketIO_1.setupSocketIO)(server);
         // setupSocketIO(server);
     }
 };

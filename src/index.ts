@@ -38,11 +38,11 @@ const startServer = async () => {
         setupRestApi(app);
         setupChimeApi(app);
 
-        const server = new http.Server(app);
-        setupSocketIO(server);
         app.listen(port, () => {
             console.log(`Express Server Listen START at port=${port}`);
         });
+        const server = new http.Server(app);
+        setupSocketIO(server);
         // setupSocketIO(server);
     }
 };
