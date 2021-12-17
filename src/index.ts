@@ -39,10 +39,10 @@ const startServer = async () => {
         setupChimeApi(app);
 
         const server = new http.Server(app);
+        setupSocketIO(server);
         app.listen(port, () => {
             console.log(`Express Server Listen START at port=${port}`);
         });
-        setupSocketIO(server);
         // setupSocketIO(server);
     }
 };
