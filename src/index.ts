@@ -33,6 +33,9 @@ const startServer = async () => {
         setupRestApi(app);
         setupChimeApi(app);
         const server = new https.Server(app);
+        app.listen(port, () => {
+            console.log(`Express Server Listen START at port=${port}`);
+        });
         setupSocketIO(server);
     }
 };

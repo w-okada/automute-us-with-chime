@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FEDERATE_SLACK = exports.LOCAL_DEV = void 0;
+exports.LOCAL_DEV = void 0;
 const chimeApi_1 = require("./012_chime/chimeApi");
 const socketIO_1 = require("./013_socketIO/socketIO");
 // import * as express from "express";
@@ -14,7 +14,6 @@ const roomInfoDao_1 = require("./002_dao/roomInfoDao");
 const rest_1 = require("./011_rest/rest");
 exports.LOCAL_DEV = false;
 // export const LOCAL_DEV = true;
-exports.FEDERATE_SLACK = false;
 const port = Number(process.env.PORT) || 3000;
 console.log(`[MAIN] START APP, PORT:${port}`);
 const startServer = async () => {
@@ -36,6 +35,9 @@ const startServer = async () => {
         (0, rest_1.setupRestApi)(app);
         (0, chimeApi_1.setupChimeApi)(app);
         const server = new https_1.default.Server(app);
+        app.listen(port, () => {
+            console.log(`Express Server Listen START at port=${port}`);
+        });
         (0, socketIO_1.setupSocketIO)(server);
     }
 };
