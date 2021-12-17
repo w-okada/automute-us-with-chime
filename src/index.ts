@@ -2,7 +2,7 @@ import { setupChimeApi } from "./012_chime/chimeApi";
 import { setupSocketIO } from "./013_socketIO/socketIO";
 // import * as express from "express";
 import express from "express";
-import https from "https";
+import http from "http";
 import { startSlackApp } from "./010_slack/slackApp";
 import { loadAllRooms } from "./002_dao/roomInfoDao";
 import { setupRestApi } from "./011_rest/rest";
@@ -32,11 +32,12 @@ const startServer = async () => {
         const app = express();
         setupRestApi(app);
         setupChimeApi(app);
-        const server = new https.Server(app);
+        const server = new http.Server(app);
         app.listen(port, () => {
             console.log(`Express Server Listen START at port=${port}`);
         });
         setupSocketIO(server);
+        // setupSocketIO(server);
     }
 };
 
