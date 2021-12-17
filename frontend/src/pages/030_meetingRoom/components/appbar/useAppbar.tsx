@@ -26,7 +26,9 @@ export const useAppbar = () => {
                 <Toolbar style={{ height: ToolbarHeight, display: "flex", justifyContent: "space-between" }}>
                     <div className={classes.toolbarInnnerBox}>{/* <DrawerOpener open={drawerOpen} setOpen={setDrawerOpen} /> */}</div>
                     <div className={classes.toolbarInnnerBox}>
-                        <div> {`${chimeClientState.userName || ""}@${socketIOClientState.mergedGameState?.lobbyCode || ""}[${Regions_List[socketIOClientState.mergedGameState?.gameRegion || 0]}]`}</div>
+                        <div> {`${chimeClientState.userName || ""}@${chimeClientState.meetingName}`}</div>
+                        <span style={{ height: ToolbarHeight, width: ToolbarHeight }}> </span>
+                        <div> {`${socketIOClientState.mergedGameState?.lobbyCode || ""}[${socketIOClientState.mergedGameState ? Regions_List[socketIOClientState.mergedGameState.gameRegion] : ""}]`}</div>
                         <span style={{ height: ToolbarHeight, width: ToolbarHeight }}> </span>
                         <div>{`map:${Map_List[socketIOClientState.mergedGameState?.map || 0]}, state:${GameState_List[socketIOClientState.mergedGameState?.state || 0]}`}</div>
                         <span style={{ height: ToolbarHeight, width: ToolbarHeight }}> </span>
