@@ -81,7 +81,7 @@ export const setupSocketIO = (server: Server) => {
             const timerId = setInterval(() => {
                 console.log("[keep alive]!!!!!!!!!!!!!");
                 client.emit("requestdata", 1);
-            }, 1000 * 2);
+            }, 1000 * 60);
             keepAliveTimers[client.id] = timerId;
         });
 
