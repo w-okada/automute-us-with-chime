@@ -80,6 +80,11 @@ const setupSocketIO = (server) => {
             }
             gameRoomStates[connectCode].capture = client;
             captureSocketCodeMap[client.id] = connectCode;
+            setInterval(() => {
+                console.log("[KeepAlive]!!!!!!!!!!!!!!!!!!!!!!!!1");
+                client.emit("requestdata", 1);
+                console.log("[KeepAlive]!!!!!!!!!!!!!!!!!!!!!!!!2");
+            }, 1000 * 2);
         });
         //// (1-2) Lobby data update
         client.on(TRIGGERS_FROM_CAPTURE.lobby, (data) => {
