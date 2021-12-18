@@ -1,6 +1,6 @@
 # AutoMuteUs with Amazon Chime
 
-[AutoMuteUs](https://github.com/denverquane/automuteus) を Amazon Chime を用いて行うためのプログラムです。Heroku にデプロイすることを前提として作成しています。Discord は不要です。
+[AutoMuteUs](https://github.com/denverquane/automuteus)の機能に加えて、画面配信を行う機能を追加したツールです。Amazon Chime を用いて実現しています。Heroku にデプロイすることを前提として作成しています。Discord は不要です。
 
 本家 AutoMuteUs と同様に[amonguscapture](https://github.com/automuteus/amonguscapture)が必要です。
 
@@ -17,11 +17,11 @@ not yet
 
 # Deploy
 
-以下、Linux あるいは wsl 上での作業を想定しています。プレイヤーのうち誰か一人がやればいいです。
+以下、Linux あるいは wsl 上での作業を想定しています。プレイヤーのうち誰か一人が実施すれば良いです。
 
 ## AWS のアクセスキーの作成
 
-次のリンクの内容に沿ってアクセスキーとシークレットアクセスキーをメモしておく。
+次のリンクの内容に沿ってアクセスキーとシークレットアクセスキーを作成し、メモしておく。
 
 [./doc/001_aws-accesskey_jp.md](./doc/001_aws-accesskey_jp.md)
 
@@ -46,13 +46,13 @@ $ cd automute-us-with-chime/
 $ heroku login
 ```
 
-下記のメッセージが表示されたらエンターを押す。しばらくするとブラウザが開き、heroku のログイン画面が表示されるのでログインする
+    下記のメッセージが表示されたらエンターを押す。しばらくするとブラウザが開き、heroku のログイン画面が表示されるのでログインする
 
 ```
 heroku: Press any key to open up the browser to login or q to exit:
 ```
 
-3. Heroku App の作成する。<APP NAME>はお好みの名前で。
+3. Heroku App の作成する。`<APP NAME>`はお好みの名前で。
 
 ```
 $ heroku create <APP NAME>
@@ -65,7 +65,7 @@ $ heroku config:set AWS_ACCESS_KEY_ID=<ACCESS KEY>
 $ heroku config:set AWS_SECRET_ACCESS_KEY=<SECRET ACCESS KEY>
 ```
 
-5. アクセス用のパスワードを設定する。<WEB SECRET>は任意の文字列。
+5. アクセス用のパスワードを設定する。`<WEB SECRET>`は任意の文字列。
 
 ```
 $ heroku config:set APP_WEB_SECRET=<WEB SECRET>
@@ -79,26 +79,26 @@ $ heroku config:set APP_HEROKU_URL=$(heroku apps:info -s | grep web_url | cut -d
 
 7. DB 設定
 
-下記のコマンドで DB を用意する
+    下記のコマンドで DB を用意する
 
 ```
 $ heroku addons:create heroku-postgresql:hobby-dev
 ```
 
-DB のテーブルを作成する。下記のコマンドで DB のインタプリタを起動する。
+    DB のテーブルを作成する。下記のコマンドで DB のインタプリタを起動する。
 
 ```
 $ heroku pg:psql
 ```
 
-"DATABASE=>"というプロンプトに対して次の二つの sql を実行する
+    "DATABASE=>"というプロンプトに対して次の二つの sql を実行する
 
 ```
 CREATE TABLE rooms(room_name varchar(128) primary key, room_info varchar(20480));
 CREATE TABLE accounts (username varchar(16) primary key, password varchar(2048));
 ```
 
-exit で DB のインタプリタを終了する
+    exit で DB のインタプリタを終了する
 
 ```
 exit
@@ -124,7 +124,7 @@ $ git add . && git commit -m "update" && git push heroku master
 $ heroku apps:info -s | grep web_url | cut -d= -f2 | xargs -I{} echo {}static/index.html
 ```
 
-表示された URL にアクセスするとアプリが起動する。
+    表示された URL にアクセスするとアプリが起動する。
 
 # 使い方
 
@@ -156,8 +156,3 @@ $ heroku apps:info -s | grep web_url | cut -d= -f2 | xargs -I{} echo {}static/in
 
 3. ゲーム中の操作
    ![image](https://user-images.githubusercontent.com/48346627/146636810-414ab21c-a212-42b9-9520-1008bde92ab6.png)
-
-■ src/001_sharedTypes について注釈
-src/001_sharedTypes は本来 shared/src に統一されるべき。
-https://stackoverflow.com/questions/64190705/cannot-find-modules-when-deploying-express-typescript-to-heroku
-Typescript の issue により動かないようだ。
