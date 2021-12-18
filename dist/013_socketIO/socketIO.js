@@ -83,7 +83,7 @@ const setupSocketIO = (server) => {
             captureSocketCodeMap[client.id] = connectCode;
             const timerId = setInterval(() => {
                 console.log("[keep alive]!!!!!!!!!!!!!");
-                client.emit("requestdata", 1);
+                client.emit("requestdata", 2);
             }, 1000 * 60);
             keepAliveTimers[client.id] = timerId;
         });

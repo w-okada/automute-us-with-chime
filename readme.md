@@ -9,7 +9,7 @@
 -   ゲーム参加者の誰かひとりは amonguscapture を起動させておく必要があります。
 -   Amazon Chime を使用するため AWS のアカウントが必要になります。
 -   Heroku にデプロイするので Heroku にアカウントが必要になります。
--   npm
+-   npm が必要になります。
 
 # Demo and Instruction Movie
 
@@ -17,7 +17,7 @@ not yet
 
 # Deploy
 
-以下、Linux あるいは wsl 上での作業を想定している。プレイヤーのうち誰か一人がやればいい。詳しい人にやってもらってください。
+以下、Linux あるいは wsl 上での作業を想定しています。プレイヤーのうち誰か一人がやればいいです。
 
 ## AWS のアクセスキーの作成
 
