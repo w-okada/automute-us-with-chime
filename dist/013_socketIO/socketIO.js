@@ -33,6 +33,7 @@ const TRIGGERS_FROM_CAPTURE = {
 const gameRoomStates = {};
 const captureSocketCodeMap = {};
 const clientSocketCodeMap = {};
+const keepAliveTimers = {};
 const getInitialGameRoomState = () => {
     return {
         gameState: {
@@ -80,11 +81,11 @@ const setupSocketIO = (server) => {
             }
             gameRoomStates[connectCode].capture = client;
             captureSocketCodeMap[client.id] = connectCode;
-            setInterval(() => {
-                console.log("[KeepAlive]!!!!!!!!!!!!!!!!!!!!!!!!1");
+            const timerId = setInterval(() => {
+                console.log("[keep alive]!!!!!!!!!!!!!");
                 client.emit("requestdata", 1);
-                console.log("[KeepAlive]!!!!!!!!!!!!!!!!!!!!!!!!2");
             }, 1000 * 2);
+            keepAliveTimers[client.id] = timerId;
         });
         //// (1-2) Lobby data update
         client.on(TRIGGERS_FROM_CAPTURE.lobby, (data) => {
@@ -165,6 +166,8 @@ const setupSocketIO = (server) => {
         client.on(TRIGGERS_FROM_CAPTURE.disconnect, () => {
             const connectCode = captureSocketCodeMap[client.id];
             console.log(`[SocketIO]${connectCode} disconnected`);
+            clearInterval(keepAliveTimers[client.id]);
+            delete keepAliveTimers[client.id];
             // delete gameRoomStates[connectCode]; // 無効化：キャプチャが再起動するときに初期化されるので
         });
         //// (1-6) gameover
