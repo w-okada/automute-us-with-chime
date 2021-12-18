@@ -2,6 +2,8 @@
 
 [JAPANESE](./readme_jp.md)
 
+![image](https://user-images.githubusercontent.com/48346627/146640282-ff2da790-e49a-4abe-b72f-53a669efd3b7.png)
+
 This is a tool that adds the functionality to deliver screens in addition to the functionality of [AutoMuteUs](https://github.com/denverquane/automuteus). It is implemented using Amazon Chime. It is designed to be deployed on Heroku, so Discord is not required.
 
 It requires [amonguscapture](https://github.com/automuteus/amonguscapture) as well as the original AutoMuteUs.

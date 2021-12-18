@@ -4,6 +4,8 @@
 
 本家 AutoMuteUs と同様に[amonguscapture](https://github.com/automuteus/amonguscapture)が必要です。
 
+![image](https://user-images.githubusercontent.com/48346627/146640282-ff2da790-e49a-4abe-b72f-53a669efd3b7.png)
+
 # Requirement
 
 -   ゲーム参加者の誰かひとりは amonguscapture を起動させておく必要があります。
