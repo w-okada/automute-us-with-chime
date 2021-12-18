@@ -27,6 +27,7 @@ export const SigninFromSlack = () => {
                 navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(() => {
                     deviceState.reloadDevices();
                 });
+
                 return;
             }
             console.log(`[SigninFromSlack] Setting Up Devices: ${defaultAudioInputDeviceId}, ${defaultVideoInputDeviceId}->not used, ${defaultAudioOutputDeviceId}`);
