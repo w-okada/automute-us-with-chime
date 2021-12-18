@@ -107,6 +107,7 @@ const startSlackApp = async (port) => {
         try {
             const roomInfo = await (0, roomInfoDao_1.generateNewRoom)(roomName, command.team_id, command.channel_id, command.channel_name, "Not yet ts");
             const controlBlocks = (0, blocks_1.generateControlBlocks)(roomInfo);
+            console.log("teamtoken::", teamToken);
             const msg = {
                 // @ts-ignore
                 channel: command.channel_id,
@@ -116,11 +117,14 @@ const startSlackApp = async (port) => {
                 text: "rendering failed??",
             };
             const postResult = await app.client.chat.postMessage(msg);
+            console.log("teamtoken:11:");
             const ts = postResult.ts;
             roomInfo.ts = ts;
             await (0, roomInfoData_1.updateRoomToDB)(roomInfo);
+            console.log("teamtoken:22:", teamToken);
         }
         catch (exception) {
+            console.log("teamtoken:exception:", exception);
             if (exception === exception_1.InternalExceptionCodes.ROOM_ALREADY_EXISTS) {
                 app.client.chat.postEphemeral({
                     channel: command.channel_id,

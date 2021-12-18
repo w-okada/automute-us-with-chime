@@ -111,6 +111,7 @@ export const startSlackApp = async (port: number) => {
             const roomInfo = await generateNewRoom(roomName, command.team_id, command.channel_id, command.channel_name, "Not yet ts");
             const controlBlocks = generateControlBlocks(roomInfo);
 
+            console.log("teamtoken::", teamToken);
             const msg = {
                 // @ts-ignore
                 channel: command.channel_id,
@@ -121,10 +122,13 @@ export const startSlackApp = async (port: number) => {
             };
 
             const postResult = await app.client.chat.postMessage(msg);
+            console.log("teamtoken:11:");
             const ts = postResult.ts;
             roomInfo.ts = ts;
             await updateRoomToDB(roomInfo);
+            console.log("teamtoken:22:", teamToken);
         } catch (exception) {
+            console.log("teamtoken:exception:", exception);
             if (exception === InternalExceptionCodes.ROOM_ALREADY_EXISTS) {
                 app.client.chat.postEphemeral({
                     channel: command.channel_id,
