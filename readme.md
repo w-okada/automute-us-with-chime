@@ -1,15 +1,17 @@
 # AutoMuteUs with Amazon Chime
 
-[AutoMuteUs](https://github.com/denverquane/automuteus)の機能に加えて、画面配信を行う機能を追加したツールです。Amazon Chime を用いて実現しています。Heroku にデプロイすることを前提として作成しています。Discord は不要です。
+[JAPANESE](./readme_jp.md)
 
-本家 AutoMuteUs と同様に[amonguscapture](https://github.com/automuteus/amonguscapture)が必要です。
+This is a tool that adds the functionality to deliver screens in addition to the functionality of [AutoMuteUs](https://github.com/denverquane/automuteus). It is implemented using Amazon Chime. It is designed to be deployed on Heroku, so Discord is not required.
+
+It requires [amonguscapture](https://github.com/automuteus/amonguscapture) as well as the original AutoMuteUs.
 
 # Requirement
 
--   ゲーム参加者の誰かひとりは amonguscapture を起動させておく必要があります。
--   Amazon Chime を使用するため AWS のアカウントが必要になります。
--   Heroku にデプロイするので Heroku にアカウントが必要になります。
--   npm が必要になります。
+-   One of the game participants needs to have amonguscapture running.
+-   You will need an AWS account to use Amazon Chime.
+-   You will need a Heroku account to deploy to Heroku.
+-   You will need npm.
 
 # Demo and Instruction Movie
 
@@ -17,94 +19,94 @@ not yet
 
 # Deploy
 
-以下、Linux あるいは wsl 上での作業を想定しています。プレイヤーのうち誰か一人が実施すれば良いです。
+The following assumes that you are working on Linux or wsl. It only needs to be done by one of the players.
 
-## AWS のアクセスキーの作成
+## Generate AWS Access key
 
-次のリンクの内容に沿ってアクセスキーとシークレットアクセスキーを作成し、メモしておく。
+Create an access key and secret access key according to the following links and write them down.
 
 [./doc/001_aws-accesskey_jp.md](./doc/001_aws-accesskey_jp.md)
 
-## Heroku CLI のセットアップ
+## setup Heroku CLI
 
-次の公式のチュートリアルに従い heroku cli をインストールする
+Follow this official tutorial to install heroku cli
 
-[https://devcenter.heroku.com/ja/articles/heroku-cli](https://devcenter.heroku.com/ja/articles/heroku-cli)
+[https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/ja/articles/heroku-cli)
 
-## デプロイ
+## Deploy
 
-1. このリポジトリを clone して、フォルダの中に移動しておく。
+1. Clone this repository and move into a folder.
 
 ```
 $ git clone https://github.com/w-okada/automute-us-with-chime.git
 $ cd automute-us-with-chime/
 ```
 
-2. heroku にログインする
+2. login heroku
 
 ```
 $ heroku login
 ```
 
-    下記のメッセージが表示されたらエンターを押す。しばらくするとブラウザが開き、heroku のログイン画面が表示されるのでログインする
+    When you see the following message, press enter. After a while, your browser will open and you will see the heroku login screen.
 
 ```
 heroku: Press any key to open up the browser to login or q to exit:
 ```
 
-3. Heroku App の作成する。`<APP NAME>`はお好みの名前で。
+3. Create Heroku App. `<APP NAME>` can be any name you like.
 
 ```
 $ heroku create <APP NAME>
 ```
 
-4. AWS のアクセスキーとシークレットアクセスキーを設定する。
+4. Set the AWS access key and secret access key.
 
 ```
 $ heroku config:set AWS_ACCESS_KEY_ID=<ACCESS KEY>
 $ heroku config:set AWS_SECRET_ACCESS_KEY=<SECRET ACCESS KEY>
 ```
 
-5. アクセス用のパスワードを設定する。`<WEB SECRET>`は任意の文字列。
+5. Set a password for access. `<WEB SECRET>` can be any string.
 
 ```
 $ heroku config:set APP_WEB_SECRET=<WEB SECRET>
 ```
 
-6. その他 Heroku の環境変数を設定する
+6. Setting other Heroku environment variables
 
 ```
 $ heroku config:set APP_HEROKU_URL=$(heroku apps:info -s | grep web_url | cut -d= -f2)
 ```
 
-7. DB 設定
+1. Setup DB
 
-    下記のコマンドで DB を用意する
+    Prepare the DB with the following command
 
 ```
 $ heroku addons:create heroku-postgresql:hobby-dev
 ```
 
-    DB のテーブルを作成する。下記のコマンドで DB のインタプリタを起動する。
+    Create a DB table. Start the DB interpreter with the following command.
 
 ```
 $ heroku pg:psql
 ```
 
-    "DATABASE=>"というプロンプトに対して次の二つの sql を実行する
+    Run the following two sql against the prompt "DATABASE=>"
 
 ```
 CREATE TABLE rooms(room_name varchar(128) primary key, room_info varchar(20480));
 CREATE TABLE accounts (username varchar(16) primary key, password varchar(2048));
 ```
 
-    exit で DB のインタプリタを終了する
+    Exit the DB interpreter with exit
 
 ```
 exit
 ```
 
-8. ビルド
+8. Build
 
 ```
 $ npm install
@@ -112,47 +114,47 @@ $ cd frontend && npm install && cd -
 $ npm run build:all
 ```
 
-9. デプロイ
+9. Deploy
 
 ```
 $ git add . && git commit -m "update" && git push heroku master
 ```
 
-10. URL 確認
+1.  URL
 
 ```
 $ heroku apps:info -s | grep web_url | cut -d= -f2 | xargs -I{} echo {}static/index.html
 ```
 
-    表示された URL にアクセスするとアプリが起動する。
+    Accessing the displayed URL will launch the application.
 
-# 使い方
+# Usage
 
-1. アプリにログインするまで。
+1. Until you login the app.
 
-    上記のデプロイで確認した URL に接続する。
+    Connect to the URL confirmed in the above deployment.
 
     ![image](https://user-images.githubusercontent.com/48346627/146636036-4f91b311-814a-4f32-bead-cece938c7f97.png)
 
-    最初に、画面下部の sign up からサインアップする。任意の username と password を設定してください。
+    First, sign up using the sign up link at the bottom of the screen. Set up a username and password of your choice.
 
-    次に、roomname, username, password, web_secret を入力してください。
-    room name は参加者（プレイヤー、観戦者）で同じものを入力。username, password はサインアップした時のもの。web_secret は上記デプロイ作業で設定したものを入力する。
+    Next, enter the roomname, username, password, and web_secret.
+    The room name should be the same for both participants (players and spectators). username and password should be the ones you used when you signed up. web_secret should be the one you set in the deployment process above.
 
-    入力後 sign in ボタンを押すと、アプリの中に入ることができる。
+    After entering the information, click the sign in button to enter the application.
 
-2. amonguscapture を起動
+2. run amonguscapture
 
-    [amonguscapture](https://github.com/automuteus/amonguscapture)をダウンロードして起動する。
+    Download [amonguscapture](https://github.com/automuteus/amonguscapture) and run it.
 
-    among us 本体 も起動する。
+    You should also run among us.
 
-    amonguscapture の左上のボタンを押してホストとコードを入力して、登録を押す。
-    ホストはブラウザで開いた URL の末尾`static/index.html`を取り除いたもの。
-    ブラウザで sign in する際に指定した room name を入力する。（※amonguscapture がフリーズする場合がある。この場合はタスクマネージャから amonguscapture を強制終了して、amonguscapture を再起動してください。）
+    Press the top left button of amonguscapture, enter the host and code, and press register.
+    The host is the URL opened in the browser without the `static/index.html` at the end.
+    Enter the room name as the code that you specified when you signed in with your browser.（※In some cases, amonguscapture may freeze. In this case, please kill amonguscapture from task manager and restart amonguscapture.）
     ![image](https://user-images.githubusercontent.com/48346627/146636256-3c3b6117-8177-4833-8624-5ed3287fb1d2.png)
 
     ![image](https://user-images.githubusercontent.com/48346627/146636283-4dd21c09-948a-4c63-ac05-711a7c2c0fa2.png)
 
-3. ゲーム中の操作
+3. Usage in game
    ![image](https://user-images.githubusercontent.com/48346627/146636810-414ab21c-a212-42b9-9520-1008bde92ab6.png)
