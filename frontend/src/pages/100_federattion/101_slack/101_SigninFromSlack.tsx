@@ -24,7 +24,9 @@ export const SigninFromSlack = () => {
             console.log(`[SigninFromSlack] Default Devices: ${defaultAudioInputDeviceId}, ${defaultVideoInputDeviceId}, ${defaultAudioOutputDeviceId}`);
             if (defaultAudioInputDeviceId === "") {
                 console.log(`[SigninFromSlack] Default Devices: default audioinput is none? "${defaultAudioInputDeviceId}"... reload`);
-                deviceState.reloadDevices();
+                navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(() => {
+                    deviceState.reloadDevices();
+                });
                 return;
             }
             console.log(`[SigninFromSlack] Setting Up Devices: ${defaultAudioInputDeviceId}, ${defaultVideoInputDeviceId}->not used, ${defaultAudioOutputDeviceId}`);
