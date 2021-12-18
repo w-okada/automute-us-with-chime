@@ -79,7 +79,7 @@ $ heroku config:set APP_WEB_SECRET=<WEB SECRET>
 $ heroku config:set APP_HEROKU_URL=$(heroku apps:info -s | grep web_url | cut -d= -f2)
 ```
 
-1. Setup DB
+7. Setup DB
 
     Prepare the DB with the following command
 
@@ -120,7 +120,7 @@ $ npm run build:all
 $ git add . && git commit -m "update" && git push heroku master
 ```
 
-1.  URL
+10. URL
 
 ```
 $ heroku apps:info -s | grep web_url | cut -d= -f2 | xargs -I{} echo {}static/index.html
