@@ -157,4 +157,4 @@ $ heroku apps:info -s | grep web_url | cut -d= -f2 | xargs -I{} echo {}static/in
     ![image](https://user-images.githubusercontent.com/48346627/146636283-4dd21c09-948a-4c63-ac05-711a7c2c0fa2.png)
 
 3. Usage in game
-   ![image](https://user-images.githubusercontent.com/48346627/146636810-414ab21c-a212-42b9-9520-1008bde92ab6.png)
+   ![image](https://user-images.githubusercontent.com/48346627/146639664-e1abb1f5-dfb2-4223-b21e-05417671a441.png)
