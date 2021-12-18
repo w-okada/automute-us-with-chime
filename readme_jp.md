@@ -156,3 +156,13 @@ $ heroku apps:info -s | grep web_url | cut -d= -f2 | xargs -I{} echo {}static/in
 
 3. ゲーム中の操作
    ![image](https://user-images.githubusercontent.com/48346627/146636810-414ab21c-a212-42b9-9520-1008bde92ab6.png)
+
+# Disclaimer
+
+本ソフトウェアの使用または使用不能により生じたいかなる直接損害・間接損害・波及的損害・結果的損害 または特別損害についても、一切責任を負いません。
+
+# Copyright
+
+see ./LICENSE
+
+Copyright (c) 2021 Wataru Okada <wataru.okada@flect.co.jp>
