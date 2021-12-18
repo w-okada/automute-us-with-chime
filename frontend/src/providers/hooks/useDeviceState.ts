@@ -101,6 +101,7 @@ export const useDeviceState = () => {
     ////////////////////////////
 
     const defaultDeviceId = (deviceList: MediaDeviceInfo[] | null) => {
+        console.log("DefaultDevice", deviceList);
         if (!deviceList) {
             return "None";
         }
