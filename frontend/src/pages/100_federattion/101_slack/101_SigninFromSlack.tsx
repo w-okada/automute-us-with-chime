@@ -20,6 +20,15 @@ export const SigninFromSlack = () => {
         console.log(`[SigninFromSlack] REST ENDPOINT: ${slackRestApiBase}`);
         console.log(`[SigninFromSlack] Device:`, deviceState.mediaDeviceList);
         if (deviceState.mediaDeviceList.audioinput.length > 0) {
+            const { defaultAudioInputDeviceId, defaultVideoInputDeviceId, defaultAudioOutputDeviceId } = deviceState.getDefaultDeviceIds();
+            console.log(`[SigninFromSlack] Default Devices: ${defaultAudioInputDeviceId}, ${defaultVideoInputDeviceId}, ${defaultAudioOutputDeviceId}`);
+            if (defaultAudioInputDeviceId === "") {
+                console.log(`[SigninFromSlack] Default Devices: default audioinput is none? "${defaultAudioInputDeviceId}"... reload`);
+                deviceState.reloadDevices();
+                return;
+            }
+            console.log(`[SigninFromSlack] Setting Up Devices: ${defaultAudioInputDeviceId}, ${defaultVideoInputDeviceId}->not used, ${defaultAudioOutputDeviceId}`);
+
             userAuthClientState.getUserInformation().then(async (result) => {
                 if (result.isFailure()) {
                     setFail(true);
@@ -42,10 +51,6 @@ export const SigninFromSlack = () => {
                 console.log(`[SigninFromSlack] Joining Meeting Room: ${meetingName} ${attendeeName}`);
                 await chimeClientState.joinMeeting(meetingName, attendeeName);
                 console.log(`[SigninFromSlack] Joining Meeting Room done: ${meetingName} ${attendeeName}`);
-                const { defaultAudioInputDeviceId, defaultVideoInputDeviceId, defaultAudioOutputDeviceId } = deviceState.getDefaultDeviceIds();
-                console.log(`[SigninFromSlack] Default Devices: ${defaultAudioInputDeviceId}, ${defaultVideoInputDeviceId}, ${defaultAudioOutputDeviceId}`);
-
-                console.log(`[SigninFromSlack] Setting Up Devices: ${defaultAudioInputDeviceId}, ${defaultVideoInputDeviceId}->not used, ${defaultAudioOutputDeviceId}`);
                 await chimeClientState.setAudioInput(defaultAudioInputDeviceId);
                 await chimeClientState.setAudioInputEnable(true);
                 await chimeClientState.setVideoInput(null);
