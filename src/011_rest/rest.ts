@@ -46,8 +46,8 @@ const generateUserInformationFromWeb = async (roomName: string, username: string
     }
 };
 
-// export const setupRestApi = (app: express.Application) => {
-export const setupRestApi = (app: express.IRouter) => {
+export const setupRestApi = (app: express.Application) => {
+    // export const setupRestApi = (app: express.IRouter) => {
     /////// Token
     app.post(`/api/auth/decodeInformation`, async (req, res) => {
         console.log(`[REST][USER_AUTH] decode token.`);

@@ -24,10 +24,8 @@ const startServer = async () => {
         receiver.app.use("/static", express_1.default.static(STATIC_PATH));
         console.log(`[SLACK APP] static path: ${STATIC_PATH}`);
         receiver.app.use(express_1.default.json());
-        // setupRestApi(receiver.app);
-        // setupChimeApi(receiver.app);
-        (0, rest_1.setupRestApi)(receiver.router);
-        (0, chimeApi_1.setupChimeApi)(receiver.router);
+        (0, rest_1.setupRestApi)(receiver.app);
+        (0, chimeApi_1.setupChimeApi)(receiver.app);
         (0, socketIO_1.setupSocketIO)(server);
     }
     else {

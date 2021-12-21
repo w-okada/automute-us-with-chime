@@ -68,8 +68,8 @@ const syncMeetingInfoWithChimeServer = async (roomInfo) => {
     }
 };
 // export const setupChimeApi = (receiver: ExpressReceiver) => {
-// export const setupChimeApi = (app: express.Application) => {
 const setupChimeApi = (app) => {
+    // export const setupChimeApi = (app: express.IRouter) => {
     app.post(`/api/chime/meetings`, async (req, res) => {
         console.log(`[CHIME] create meeting.`);
         const userInfo = authorizer(req.headers["x-flect-access-token"]);

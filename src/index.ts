@@ -25,11 +25,8 @@ const startServer = async () => {
         console.log(`[SLACK APP] static path: ${STATIC_PATH}`);
 
         receiver.app.use(express.json());
-        // setupRestApi(receiver.app);
-        // setupChimeApi(receiver.app);
-        setupRestApi(receiver.router);
-        setupChimeApi(receiver.router);
-
+        setupRestApi(receiver.app);
+        setupChimeApi(receiver.app);
         setupSocketIO(server);
     } else {
         console.log("NORMAL MODE");
