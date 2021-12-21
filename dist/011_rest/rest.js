@@ -116,7 +116,7 @@ const setupRestApi = (app) => {
     ////// Generate Token
     app.post(`/api/auth/user/operation/generateToken`, async (req, res) => {
         const getTokenRequest = req.body;
-        console.log(`[WEB REST API]`, JSON.stringify(req));
+        console.log(`[WEB REST API]`, req);
         const signinResult = await (0, accountDao_1.signin)(getTokenRequest.username, getTokenRequest.password);
         if (signinResult === false) {
             console.log(`[REST][USER_AUTH] authorization failed.`);
