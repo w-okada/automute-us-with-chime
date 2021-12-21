@@ -44,6 +44,16 @@ export const startSlackApp = async (port: number) => {
     //// (1-2) Create App
     const config: AppOptions = {
         receiver,
+        customRoutes: [
+            {
+                path: "/h",
+                method: ["GET"],
+                handler: (req, res) => {
+                    res.writeHead(200);
+                    res.end("Health check information displayed here!");
+                },
+            },
+        ],
     };
     const app = new App(config);
 

@@ -61,6 +61,7 @@ export const MeetingRoom = () => {
                         marginTop: ToolbarHeight,
                         position: "absolute",
                         display: "flex",
+                        flexDirection: "column",
                         width: "100%",
                         height: `${windowSize.windowHeight - ToolbarHeight - BufferHeight}px`,
                     }}

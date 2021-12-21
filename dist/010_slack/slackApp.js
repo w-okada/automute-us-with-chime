@@ -46,6 +46,16 @@ const startSlackApp = async (port) => {
     //// (1-2) Create App
     const config = {
         receiver,
+        customRoutes: [
+            {
+                path: "/h",
+                method: ["GET"],
+                handler: (req, res) => {
+                    res.writeHead(200);
+                    res.end("Health check information displayed here!");
+                },
+            },
+        ],
     };
     const app = new bolt_1.App(config);
     //// (1-3) Slack App setting
