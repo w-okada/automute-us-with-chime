@@ -119,6 +119,7 @@ export const setupRestApi = (app: express.IRouter) => {
     ////// Generate Token
     app.post(`/api/auth/user/operation/generateToken`, async (req, res) => {
         const getTokenRequest = req.body as AuthHTTPGetTokenRequest;
+        console.log(`[WEB REST API]`, JSON.stringify(req));
         const signinResult = await signin(getTokenRequest.username, getTokenRequest.password);
         if (signinResult === false) {
             console.log(`[REST][USER_AUTH] authorization failed.`);
