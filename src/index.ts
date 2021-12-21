@@ -19,14 +19,18 @@ const startServer = async () => {
     if (process.env.SLACK_SIGNING_SECRET && process.env.SLACK_CLIENT_ID && process.env.SLACK_CLIENT_SECRET && process.env.SLACK_STATE_SECRET) {
         console.log("SLACK FEDERATION MODE");
         const { server, receiver } = await startSlackApp(port);
-        // const STATIC_PATH = __dirname + "/../frontend/dist/";
-        // receiver.app.use("/static", express.static(STATIC_PATH));
-        // console.log(`[SLACK APP] static path: ${STATIC_PATH}`);
 
-        // receiver.app.use(express.json());
+        const STATIC_PATH = __dirname + "/../frontend/dist/";
+        receiver.app.use("/static", express.static(STATIC_PATH));
+        console.log(`[SLACK APP] static path: ${STATIC_PATH}`);
+
+        receiver.app.use(express.json());
         // setupRestApi(receiver.app);
         // setupChimeApi(receiver.app);
-        // setupSocketIO(server);
+        setupRestApi(receiver.router);
+        setupChimeApi(receiver.router);
+
+        setupSocketIO(server);
     } else {
         console.log("NORMAL MODE");
         const app = express();

@@ -43,7 +43,7 @@ const generateUserInformationFromWeb = async (roomName, username) => {
         return user;
     }
 };
-// export const setupRestApi = (receiver: ExpressReceiver) => {
+// export const setupRestApi = (app: express.Application) => {
 const setupRestApi = (app) => {
     /////// Token
     app.post(`/api/auth/decodeInformation`, async (req, res) => {

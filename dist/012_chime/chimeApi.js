@@ -68,6 +68,7 @@ const syncMeetingInfoWithChimeServer = async (roomInfo) => {
     }
 };
 // export const setupChimeApi = (receiver: ExpressReceiver) => {
+// export const setupChimeApi = (app: express.Application) => {
 const setupChimeApi = (app) => {
     app.post(`/api/chime/meetings`, async (req, res) => {
         console.log(`[CHIME] create meeting.`);
