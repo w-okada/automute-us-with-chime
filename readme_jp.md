@@ -6,6 +6,8 @@
 
 ![image](https://user-images.githubusercontent.com/48346627/146640282-ff2da790-e49a-4abe-b72f-53a669efd3b7.png)
 
+[Slack Federation is here](./doc/002_slack_federation_jp.md)
+
 # Requirement
 
 -   ゲーム参加者の誰かひとりは amonguscapture を起動させておく必要があります。

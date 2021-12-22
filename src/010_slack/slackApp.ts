@@ -46,7 +46,6 @@ export const startSlackApp = async (port: number) => {
         receiver,
     };
     const app = new App(config);
-
     //// (1-3) Slack App setting
     ////// (1-3-1) helper funcs
     const generateUserInformationFromSlack = async (token: string, body: SlackAction, action: DialogSubmitAction | WorkflowStepEdit | BlockElementAction | InteractiveAction): Promise<UserInformation> => {
